@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tauri App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Bienvenue sur votre BlocNote !</h1>
+
+    <!-- Bouton pour ajouter une note -->
+    <button id="add-note-button">Add Note</button>
+
+    <!-- Formulaire pour ajouter une nouvelle note -->
+    <form id="save-note-form">
+      <input id="save-note-title" placeholder="Enter note title..." />
+      <textarea id="save-note-content" placeholder="Enter note content..."></textarea>
+      <button id="save-note-button">Save Note</button>
+    </form>
+
+    <!-- Formulaire pour mettre à jour une note -->
+    <div id="update-note-form-container">
+      <h2>Update Note</h2>
+      <form id="update-note-form">
+        <input type="text" id="update-note-title" placeholder="Enter new title...">
+        <textarea id="update-note-content" placeholder="Enter new content..."></textarea>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+
+    <!-- Div pour afficher toutes les notes -->
+    <div id="all-notes"></div>
+  </div>
+
+  <script type="module" src="/main.js" defer></script>
+</body>
+
+</html>
