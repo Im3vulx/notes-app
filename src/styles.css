@@ -10,6 +10,17 @@ body {
   display: none;
 }
 
+#save-note-form button {
+  margin-top: 10px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
 
 .container {
   max-width: 800px;
@@ -47,7 +58,7 @@ input[type="text"],
 textarea {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -62,11 +73,13 @@ textarea {
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .note-title {
   font-weight: bold;
-  margin-bottom: 5px;
 }
 
 .note-content {

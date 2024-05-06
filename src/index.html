@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tauri App</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -13,22 +14,27 @@
     <h1>Bienvenue sur votre BlocNote !</h1>
 
     <!-- Bouton pour ajouter une note -->
-    <button id="add-note-button">Add Note</button>
+    <div class="top">
+      <button id="add-note-button">Ajouter une note</button>
+      <input type="text" id="search-note-input" placeholder="Rechercher par contenu...">
+    </div>
+
 
     <!-- Formulaire pour ajouter une nouvelle note -->
     <form id="save-note-form">
-      <input id="save-note-title" placeholder="Enter note title..." />
-      <textarea id="save-note-content" placeholder="Enter note content..."></textarea>
-      <button id="save-note-button">Save Note</button>
+      <input type="text" id="save-note-title" placeholder="Titre de la note..." />
+      <div id="editor"></div> <!-- Ajout de Quill pour le contenu de la note -->
+      <button id="save-note-button">Enregistrer</button>
     </form>
 
     <!-- Formulaire pour mettre à jour une note -->
     <div id="update-note-form-container">
-      <h2>Update Note</h2>
+      <h2>Modifier la note</h2>
       <form id="update-note-form">
-        <input type="text" id="update-note-title" placeholder="Enter new title...">
-        <textarea id="update-note-content" placeholder="Enter new content..."></textarea>
-        <button type="submit">Save</button>
+        <input type="hidden" id="update-note-id" />
+        <input type="text" id="update-note-title" placeholder="Entrez un nouveau titre..." />
+        <div id="update-editor"></div> <!-- Ajout de Quill pour le contenu de la note à mettre à jour -->
+        <button type="submit">Enregistrer</button>
       </form>
     </div>
 
@@ -37,6 +43,7 @@
   </div>
 
   <script type="module" src="/main.js" defer></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </body>
 
 </html>
