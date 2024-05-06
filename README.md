@@ -45,10 +45,18 @@ Le projet utilise les dépendances suivantes pour son développement :
 Pour installer et utiliser le projet sur ma machine de développement, je suis ces étapes :
 
 Cloner le Dépôt :
-```git clone https://github.com/votre-utilisateur/tauri-notes-app.git```
+```
+git clone https://github.com/votre-utilisateur/tauri-notes-app.git
+```
 Naviguer vers le Répertoire :
-```cd tauri-notes-app```
+```
+cd tauri-notes-app
+```
 Installer les Dépendances :
-```# Backend (Rust) cd tauri cargo build # Frontend (JavaScript) cd ../src-tauri npm install```
+```
+# Backend (Rust) cd tauri cargo build # Frontend (JavaScript) cd ../src-tauri npm install
+```
 Pour tester votre application pendant le développement, utilisez la commande suivante :
-```tauri dev```
+```
+tauri dev
+```
