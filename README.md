@@ -39,12 +39,14 @@ Le projet utilise les dépendances suivantes pour son développement :
 - Tauri : Bibliothèque pour le développement d'applications de bureau multiplateformes en utilisant des technologies web.
 - rusqlite : Bibliothèque Rust pour l'interaction avec la base de données SQLite.
 - Quill : Éditeur de texte riche utilisé pour la saisie du contenu des notes.
+- Tokio : Bibliothèque Rust pour la gestion asynchrone des opérations.
 
 ## Installation et Utilisation
 Pour installer et utiliser le projet sur ma machine de développement, je suis ces étapes :
 
-- Je clone le dépôt depuis GitHub.
-- Je m'assure d'avoir Rust et Cargo installés sur ma machine.
-- J'exécute cargo build dans le répertoire backend pour compiler le backend.
-- J'exécute npm install dans le répertoire frontend pour installer les dépendances du frontend.
-- J'exécute npm start pour démarrer l'application.
+Cloner le Dépôt :
+`git clone https://github.com/votre-utilisateur/tauri-notes-app.git`
+Naviguer vers le Répertoire :
+`cd tauri-notes-app`
+Installer les Dépendances :
+`# Backend (Rust) cd tauri cargo build # Frontend (JavaScript) cd ../src-tauri npm install`
