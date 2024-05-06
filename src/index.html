@@ -19,10 +19,10 @@
       <input type="text" id="search-note-input" placeholder="Rechercher par contenu...">
     </div>
 
-
     <!-- Formulaire pour ajouter une nouvelle note -->
     <form id="save-note-form">
       <input type="text" id="save-note-title" placeholder="Titre de la note..." />
+      <input type="text" id="save-note-tags" placeholder="Tags séparés par des virgules..." />
       <div id="editor"></div> <!-- Ajout de Quill pour le contenu de la note -->
       <button id="save-note-button">Enregistrer</button>
     </form>
@@ -33,6 +33,7 @@
       <form id="update-note-form">
         <input type="hidden" id="update-note-id" />
         <input type="text" id="update-note-title" placeholder="Entrez un nouveau titre..." />
+        <input type="text" id="update-note-tags" placeholder="Tags séparés par des virgules..." />
         <div id="update-editor"></div> <!-- Ajout de Quill pour le contenu de la note à mettre à jour -->
         <button type="submit">Enregistrer</button>
       </form>
@@ -42,8 +43,8 @@
     <div id="all-notes"></div>
   </div>
 
-  <script type="module" src="/main.js" defer></script>
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script src="main.js" defer></script>
 </body>
 
 </html>

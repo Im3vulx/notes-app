@@ -6,12 +6,14 @@ let quillSave, quillUpdate;
 async function saveNote() {
   try {
     const title = document.querySelector("#save-note-title").value;
+    const tagsInput = document.querySelector("#save-note-tags").value;
     const content = quillSave.root.innerHTML; // Utiliser l'instance de Quill pour récupérer le contenu
+    const tags = tagsInput.split(",").map(tag => tag.trim());
     if (!title || !content) {
       console.error("Le titre et le contenu sont requis.");
       return;
     }
-    await invoke("save_note", { title, content });
+    await invoke("save_note", { title, content, tags });
     await displayAllNotes(); // Rafraîchir l'affichage des notes après l'ajout
     const saveNoteForm = document.querySelector("#save-note-form");
     saveNoteForm.style.display = "none"; // Masquer le formulaire après l'ajout
@@ -41,6 +43,7 @@ async function displayAllNotes() {
         <div class="note" data-id="${note.id}">
           <div class="note-title">${note.title}</div>
           <div class="note-content">${note.content}</div>
+          <div class="note-tags">${note.tags}</div>
           <button class="update-note-button">Modifier</button>
           <button class="delete-note-button">Supprimer</button>
         </div>
@@ -63,6 +66,7 @@ async function showUpdateForm(id) {
     document.querySelector("#update-note-id").value = note.id;
     document.querySelector("#update-note-title").value = note.title;
     quillUpdate.root.innerHTML = note.content;
+    const tagsInput = document.getElementById("update-note-tags").value  = note.tags;
     document.getElementById("update-note-form-container").style.display = "block";
   } catch (error) {
     console.error("Erreur lors de la mise à jour de la note:", error);
@@ -87,11 +91,13 @@ async function saveUpdatedNote() {
     const id = parseInt(document.querySelector("#update-note-id").value);
     const title = document.querySelector("#update-note-title").value;
     const content = quillUpdate.root.innerHTML;
+    const tagsInput = document.querySelector("#update-note-tags").value; // Récupérer les tags depuis le champ de saisie
+    const tags = tagsInput.split(",").map(tag => tag.trim());
     if (!id || isNaN(id) || !title.trim() || !content.trim()) {
-      console.error("Identifiant, titre et contenu sont requis.");
+      console.error("Un titre et un contenu sont requis.");
       return;
     }
-    await invoke("update_note", { id, title, content });
+    await invoke("update_note", { id, title, content, tags });
     await displayAllNotes();
     document.getElementById("update-note-form-container").style.display = "none";
   } catch (error) {
@@ -142,6 +148,7 @@ async function displayFilteredNotes(searchText) {
           <div class="note" data-id="${note.id}">
             <div class="note-title">${note.title}</div>
             <div class="note-content">${note.content}</div>
+            <div class="note-tags">${note.tags}</div>
             <button class="update-note-button">Modifier</button>
             <button class="delete-note-button">Supprimer</button>
           </div>
@@ -163,7 +170,6 @@ document.querySelector("#search-note-input").addEventListener("input", async (ev
     await displayAllNotes();
   }
 });
-
 
 // Gestionnaire d'événement pour le chargement initial de la page
 window.addEventListener("DOMContentLoaded", () => {
