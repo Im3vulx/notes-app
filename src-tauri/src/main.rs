@@ -3,6 +3,7 @@
 
 use rusqlite::{params, Connection, Result};
 use serde_json::json;
+use tokio::runtime::Runtime;
 
 fn init_db() -> Result<()> {
     let conn = Connection::open("notes.db")?;
@@ -18,7 +19,7 @@ fn init_db() -> Result<()> {
 }
 
 #[tauri::command]
-fn save_note(title: String, content: String) -> Result<(), String> {
+async fn save_note(title: String, content: String) -> Result<(), String> {
     let conn = Connection::open("notes.db").map_err(|e| format!("Failed to open database: {}", e))?;
     conn.execute(
         "INSERT INTO notes (title, content) VALUES (?1, ?2)",
@@ -28,7 +29,7 @@ fn save_note(title: String, content: String) -> Result<(), String> {
 }
 
 #[tauri::command]
-fn read_note() -> Result<String, String> {
+async fn read_note() -> Result<String, String> {
     let conn = Connection::open("notes.db").map_err(|e| format!("Failed to open database: {}", e))?;
     let mut stmt = conn.prepare("SELECT id, title, content FROM notes").map_err(|e| format!("Failed to prepare SQL statement: {}", e))?;
     let note_iter = stmt.query_map([], |row| {
@@ -46,9 +47,8 @@ fn read_note() -> Result<String, String> {
     Ok(json_string)
 }
 
-
 #[tauri::command]
-fn update_note(id: i32, title: String, content: String) -> Result<(), String> {
+async fn update_note(id: i32, title: String, content: String) -> Result<(), String> {
     let conn = Connection::open("notes.db").map_err(|e| format!("Failed to open database: {}", e))?;
     conn.execute(
         "UPDATE notes SET title = ?1, content = ?2 WHERE id = ?3",
@@ -58,7 +58,7 @@ fn update_note(id: i32, title: String, content: String) -> Result<(), String> {
 } 
 
 #[tauri::command]
-fn delete_note(id: i32) -> Result<(), String> {
+async fn delete_note(id: i32) -> Result<(), String> {
     let conn = Connection::open("notes.db").map_err(|e| format!("Failed to open database: {}", e))?;
     conn.execute("DELETE FROM notes WHERE id = ?1", params![id])
         .map_err(|e| format!("Failed to delete note from database: {}", e))?;
@@ -68,8 +68,12 @@ fn delete_note(id: i32) -> Result<(), String> {
 fn main() {
     init_db().expect("Failed to initialize database");
     
-    tauri::Builder::default()
+    let mut rt = Runtime::new().unwrap();
+
+    rt.block_on(async {
+        tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![save_note, read_note, update_note, delete_note])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+    });
 }
